@@ -27,7 +27,12 @@ jobs:
         run: |
           java -version
           echo "JAVA_HOME: $JAVA_HOME"
-          JAVA_VER=$(java -version 2>&1 | head -n 1 | awk -F '"' '{print $2}' | awk -F '.' '{print $1}')
+          RAW_VER=$(java -version 2>&1 | head -n 1)
+          echo "Raw Java Version Output: $RAW_VER"
+          JAVA_VER=$(echo "$RAW_VER" | grep -oE '"[0-9]+' | tr -d '"')
+          if [ -z "$JAVA_VER" ]; then
+            JAVA_VER=$(echo "$RAW_VER" | awk -F '"' '{print $2}' | cut -d'.' -f1)
+          fi
           if [ -z "$JAVA_VER" ]; then
             echo "Error: Could not detect Java version."
             exit 1
@@ -64,6 +69,16 @@ jobs:
             exit 1
           fi
           echo "Temporary debug keystore verified."
+
+      - name: Check Android Project Structure
+        run: |
+          echo "Checking repository root contents..."
+          ls -la
+          if [ ! -f "build.gradle" ] && [ ! -f "build.gradle.kts" ] && [ ! -f "settings.gradle" ] && [ ! -f "settings.gradle.kts" ]; then
+            echo "::error::Android Gradle project files (build.gradle / settings.gradle) are missing in the repository root!"
+            echo "Please ensure your Android Studio / Google AI Studio Android project files (app/, build.gradle, settings.gradle) are committed and pushed to the repository."
+            exit 1
+          fi
 
       - name: Build debug APK
         run: gradle :app:assembleDebug --stacktrace --no-daemon
