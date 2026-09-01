@@ -64,21 +64,13 @@ jobs:
           else
             echo "debug.keystore already exists."
           fi
+          mkdir -p ~/.android
+          cp ./debug.keystore ~/.android/debug.keystore
           if [ ! -f ./debug.keystore ]; then
             echo "Error: Failed to create ./debug.keystore"
             exit 1
           fi
           echo "Temporary debug keystore verified."
-
-      - name: Check Android Project Structure
-        run: |
-          echo "Checking repository root contents..."
-          ls -la
-          if [ ! -f "build.gradle" ] && [ ! -f "build.gradle.kts" ] && [ ! -f "settings.gradle" ] && [ ! -f "settings.gradle.kts" ]; then
-            echo "::error::Android Gradle project files (build.gradle / settings.gradle) are missing in the repository root!"
-            echo "Please ensure your Android Studio / Google AI Studio Android project files (app/, build.gradle, settings.gradle) are committed and pushed to the repository."
-            exit 1
-          fi
 
       - name: Build debug APK
         run: gradle :app:assembleDebug --stacktrace --no-daemon
