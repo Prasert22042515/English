@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock English for Communication | PrasertAKK</title>
+    <meta name="description" content="Learn English for Communication with 12 interactive video lessons, quizzes, and earn your certificate. Taught by Prasert Akkaratwichakorn.">
+    <link rel="shortcut icon" href="prasertakk.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Name Registration Modal Overlay -->
+    <div class="modal-overlay" id="name-registration-modal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="fa fa-user-pen"></i></div>
+            <h2>ลงทะเบียนผู้เรียน</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 24px;">
+                กรุณากรอกชื่อและนามสกุลของคุณเพื่อเริ่มเรียน<br>
+                <small>(ชื่อนี้จะถูกใช้ในใบประกาศนียบัตร และไม่สามารถแก้ไขได้หลังบันทึก)</small>
+            </p>
+            <div class="form-group">
+                <label for="reg-firstname"><i class="fa fa-user"></i> ชื่อ (First name)</label>
+                <input type="text" id="reg-firstname" placeholder="เช่น ประเสริฐ" autocomplete="given-name">
+            </div>
+            <div class="form-group">
+                <label for="reg-lastname"><i class="fa fa-user"></i> นามสกุล (Last name)</label>
+                <input type="text" id="reg-lastname" placeholder="เช่น อัครทวิชากร" autocomplete="family-name">
+            </div>
+            <button class="btn btn-primary" id="btn-save-name" style="width:100%; margin-top:12px; justify-content:center;">
+                <i class="fa fa-save"></i> บันทึกและเริ่มเรียน
+            </button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand-section">
+                <img src="prasertakk2.jpg" alt="PrasertAKK Logo" class="brand-logo">
+                <span class="brand-name">PrasertAKK</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <span class="nav-item-title">เมนูหลัก</span>
+                <a href="#" class="nav-link active" data-tab="dashboard">
+                    <i class="fa fa-th-large"></i>
+                    <span>แดชบอร์ด</span>
+                </a>
+                
+                <span class="nav-item-title">การประเมินผล</span>
+                <a href="#" class="nav-link step-link" data-tab="pre" data-step="1" id="nav-pre-link">
+                    <i class="fa fa-clipboard-question"></i>
+                    <span>Step 1 : Pre-test</span>
+                </a>
+                
+                <span class="nav-item-title">บทเรียน</span>
+                <a href="#" class="nav-link step-link" data-tab="lessons" data-step="2" id="nav-lessons-link">
+                    <i class="fa fa-play-circle"></i>
+                    <span>Step 2 : Lessons (12 บท)</span>
+                </a>
+                
+                <span class="nav-item-title">การประเมินผล</span>
+                <a href="#" class="nav-link step-link" data-tab="post" data-step="3" id="nav-post-link">
+                    <i class="fa fa-square-check"></i>
+                    <span>Step 3 : Post-test</span>
+                </a>
+                
+                <span class="nav-item-title">ความสำเร็จ</span>
+                <a href="#" class="nav-link step-link" data-tab="certificate" data-step="4" id="nav-cert-link">
+                    <i class="fa fa-award"></i>
+                    <span>Step 4 : ใบประกาศนียบัตร</span>
+                </a>
+            </nav>
+            
+            <!-- Learner name display (shown after registration) -->
+            <div class="learner-name-badge" id="learner-name-badge" style="display:none;">
+                <i class="fa fa-id-card" style="color: var(--color-primary);"></i>
+                <span id="learner-name-display"></span>
+            </div>
+
+            <!-- reset progress button -->
+            <button class="btn btn-secondary" onclick="resetProgress()" style="margin-bottom: 16px; justify-content: center; font-size: 13px; padding: 8px;">
+                <i class="fa fa-rotate-left"></i> รีเซ็ตประวัติการเรียน
+            </button>
+
+            <!-- Instructor Badge -->
+            <div class="instructor-badge">
+                <img src="prasertakk2.jpg" alt="Prasert AKK" class="instructor-avatar">
+                <div class="instructor-info">
+                    <span class="instructor-label">ผู้สอน</span>
+                    <span class="instructor-name">ผศ. ดร.เริงฤดี มณีภัคธร</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- 1. Dashboard Tab View -->
+            <section id="dashboard-section" class="tab-section active">
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <span class="welcome-badge">ยินดีต้อนรับเข้าสู่บทเรียน</span>
+                        <h1>Unlock English for Communication</h1>
+                        <p class="welcome-desc">
+                            เนื้อหาของบทเรียนประกอบด้วยการสื่อสารภาษาอังกฤษในสถานการณ์ต่าง ๆ จำนวน 12 บทเรียน 
+                            เน้นคำศัพท์ สำนวน และการใช้งานจริงในชีวิตประจำวัน สอนโดย ผศ. ดร.เริงฤดี มณีภัคธร
+                        </p>
+                        <button class="btn btn-primary" id="dashboard-start-learning">
+                            <i class="fa fa-arrow-right"></i> เริ่มเรียนเลย
+                        </button>
+                    </div>
+                    <div class="dashboard-hero-video">
+                        <div class="intro-video-label"><i class="fa fa-film"></i> INTRODUCTION VIDEO</div>
+                        <iframe id="intro-video-iframe"
+                            src="https://drive.google.com/file/d/1B5qJ9aQ7UhpIXTGosk8ddsbNW3D1z1Iv/preview"
+                            style="width: 100%; height: 270px; border: none; display: block;"
+                            allow="autoplay"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <!-- Course Progress Tracker Card -->
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <span class="progress-title"><i class="fa fa-chart-line" style="color: var(--color-primary);"></i> ความคืบหน้าการเรียนของคุณ</span>
+                        <span class="progress-pct" id="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-stats-row">
+                        <div class="progress-stat-box">
+                            <div class="progress-stat-val" id="stat-pretest-score">ยังไม่ได้ทำ</div>
+                            <div class="progress-stat-lbl">Step 1 : คะแนน PRE-TEST</div>
+                        </div>
+                        <div class="progress-stat-box">
+                            <div class="progress-stat-val" id="stat-lessons-count">0 / 12</div>
+                            <div class="progress-stat-lbl">Step 2 : บทเรียนที่เรียนเสร็จ</div>
+                        </div>
+                        <div class="progress-stat-box">
+                            <div class="progress-stat-val" id="stat-posttest-score">ยังไม่ได้ทำ</div>
+                            <div class="progress-stat-lbl">Step 3 : คะแนน POST-TEST</div>
+                        </div>
+                        <div class="progress-stat-box">
+                            <div class="progress-stat-val" id="stat-cert-unlocked">ล็อคอยู่</div>
+                            <div class="progress-stat-lbl">Step 4 : ประกาศนียบัตร</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>รายการบทเรียนของรายวิชา</h2>
+                <p class="section-subtitle">คลิกที่การ์ดบทเรียนด้านล่างเพื่อเริ่มเรียนและรับชมวิดีโอการสอน</p>
+                
+                <div class="lessons-grid" id="dashboard-lessons-grid">
+                    <!-- Dynamic rendering via app.js -->
+                </div>
+            </section>
+
+            <!-- 2. Pre-test Tab View -->
+            <section id="pre-section" class="tab-section">
+                <h1><i class="fa fa-clipboard-question" style="color:var(--color-primary);"></i> Step 1 : แบบทดสอบก่อนเรียน (Pre-test)</h1>
+                <p class="section-subtitle">กรุณาเลือกคำตอบที่ถูกต้องที่สุดสำหรับแต่ละข้อคำถาม</p>
+
+                <!-- Score Overlay Banner -->
+                <div class="quiz-score-overlay" id="pre-score-overlay">
+                    <h2>คะแนนสอบ Pre-test ของคุณ</h2>
+                    <div class="quiz-score-val">0 / 20</div>
+                    <p style="color: var(--color-text-muted); margin-top: 8px;">ระบบได้บันทึกคะแนนของคุณเรียบร้อยแล้ว คุณสามารถไปเรียนบทเรียนได้แล้ว</p>
+                    <button class="btn btn-primary" onclick="switchTab('lessons')" style="margin-top:16px;">
+                        <i class="fa fa-arrow-right"></i> ไปเรียน Step 2: Lessons
+                    </button>
+                </div>
+
+                <div class="quiz-info-header">
+                    <div class="quiz-info-text">
+                        <h2>แบบทดสอบการฟังและโครงสร้างการสื่อสาร</h2>
+                        <p>คำชี้แจง: ข้อสอบเป็นแบบปรนัย 4 ตัวเลือก จำนวน 20 ข้อ ให้ผู้เรียนเลือกคำตอบที่เหมาะสมที่สุด</p>
+                    </div>
+                    <div class="quiz-helpers">
+                        <button class="btn btn-secondary" onclick="autoFillQuiz('pre')">
+                            <i class="fa fa-wand-magic-sparkles" style="color: var(--color-primary-hover);"></i> เฉลยคำตอบ (Auto-Fill)
+                        </button>
+                    </div>
+                </div>
+
+                <div id="pre-quiz-questions"></div>
+
+                <div style="text-align: center; margin: 40px 0;">
+                    <button class="btn btn-primary" onclick="gradeQuiz('pre')" style="font-size: 16px; padding: 14px 40px; border-radius: var(--border-radius-sm);">
+                        <i class="fa fa-paper-plane"></i> ส่งแบบทดสอบ Pre-test
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. Lessons Tab View -->
+            <section id="lessons-section" class="tab-section">
+                <h1><i class="fa fa-play-circle" style="color:var(--color-primary);"></i> Step 2 : ห้องเรียนออนไลน์</h1>
+                <p class="section-subtitle">รับชมวิดีโอการสอน เมื่อดูจบระบบจะบันทึกว่าเรียนผ่านบทเรียนนี้แล้วโดยอัตโนมัติ</p>
+
+                <div class="lesson-viewer-container">
+                    <div class="video-player-section">
+                        <div class="video-wrapper">
+                            <iframe id="main-course-iframe"
+                                src=""
+                                style="width: 100%; height: 100%; min-height: 420px; border: none; display: block;"
+                                allow="autoplay"
+                                allowfullscreen></iframe>
+                            <video id="main-course-video" controls poster="prasertakk.jpg" style="display: none; width: 100%;">
+                                <source src="" type="video/mp4">
+                                เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+                            </video>
+                        </div>
+                        <div class="video-meta">
+                            <h2 id="viewing-video-title">Lesson 1. Nice to Meet You</h2>
+                            <p style="color: var(--color-text-muted); font-size: 14px;">
+                                วิทยากร: ผศ. ดร.เริงฤดี มณีภัคธร | รายวิชา English for Communication
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lesson-sidebar-section">
+                        <div class="lesson-sidebar-title">บทเรียนทั้งหมด (12 Lessons)</div>
+                        <ul class="sidebar-lessons-list" id="sidebar-lessons-list"></ul>
+                    </div>
+                </div>
+
+                <!-- All lessons completed banner -->
+                <div class="all-lessons-done-banner" id="all-lessons-done-banner" style="display:none;">
+                    <i class="fa fa-circle-check" style="font-size:28px; color:var(--color-success);"></i>
+                    <div>
+                        <h3>ยินดีด้วย! คุณเรียนครบทุกบทเรียนแล้ว</h3>
+                        <p style="color:var(--color-text-muted);">คุณสามารถไปทำข้อสอบ Post-test เพื่อรับใบประกาศนียบัตร</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="switchTab('post')">
+                        <i class="fa fa-arrow-right"></i> ไปทำ Step 3: Post-test
+                    </button>
+                </div>
+
+                <!-- Vocabulary Panel -->
+                <div class="vocab-section" id="lesson-vocab-box">
+                    <h2><i class="fa fa-book" style="color: var(--color-primary-hover);"></i> คำศัพท์และสำนวนน่าสนใจ (Key Vocabulary)</h2>
+                    <p class="section-subtitle">คำศัพท์สำคัญที่พบในบทเรียนนี้</p>
+                    <div class="vocab-grid"></div>
+                </div>
+            </section>
+
+            <!-- 4. Post-test Tab View -->
+            <section id="post-section" class="tab-section">
+                <h1><i class="fa fa-square-check" style="color:var(--color-primary);"></i> Step 3 : แบบทดสอบหลังเรียน (Post-test)</h1>
+                <p class="section-subtitle">ทดสอบความรู้เพื่อประเมินผลการเรียนและปลดล็อคใบประกาศนียบัตร</p>
+
+                <div class="quiz-score-overlay" id="post-score-overlay">
+                    <h2>คะแนนสอบ Post-test ของคุณ</h2>
+                    <div class="quiz-score-val">0 / 40</div>
+                    <p style="color: var(--color-text-muted); margin-top: 8px;" id="post-score-status-text">
+                        ระบบได้บันทึกคะแนนของคุณเรียบร้อยแล้ว คุณสามารถรับใบประกาศนียบัตรได้ใน Step 4
+                    </p>
+                    <button class="btn btn-primary" id="btn-goto-cert-after-post" onclick="switchTab('certificate')" style="margin-top:16px; display:none;">
+                        <i class="fa fa-award"></i> ไปดูใบประกาศนียบัตร Step 4
+                    </button>
+                </div>
+
+                <div class="quiz-info-header">
+                    <div class="quiz-info-text">
+                        <h2>แบบทดสอบหลังเรียนสรุปรายวิชา</h2>
+                        <p>คำชี้แจง: ให้เลือกคำตอบที่ถูกต้องที่สุดเพื่อผ่านรายวิชาและรับใบรับรอง (จำนวน 40 ข้อ)</p>
+                    </div>
+                    <div class="quiz-helpers">
+                        <button class="btn btn-secondary" onclick="autoFillQuiz('post')">
+                            <i class="fa fa-wand-magic-sparkles" style="color: var(--color-primary-hover);"></i> เฉลยคำตอบ (Auto-Fill)
+                        </button>
+                    </div>
+                </div>
+
+                <div id="post-quiz-questions"></div>
+
+                <div style="text-align: center; margin: 40px 0;">
+                    <button class="btn btn-primary" onclick="gradeQuiz('post')" style="font-size: 16px; padding: 14px 40px; border-radius: var(--border-radius-sm);">
+                        <i class="fa fa-paper-plane"></i> ส่งแบบทดสอบ Post-test
+                    </button>
+                </div>
+            </section>
+
+            <!-- 5. Certificate Tab View -->
+            <section id="certificate-section" class="tab-section">
+                <h1><i class="fa fa-award" style="color:var(--color-primary);"></i> Step 4 : ใบประกาศนียบัตร (Certificate)</h1>
+                <p class="section-subtitle">ขอแสดงความยินดีกับความสำเร็จของคุณในการสำเร็จการศึกษารายวิชา English for Communication</p>
+
+                <!-- Locked State -->
+                <div class="cert-locked-state" id="cert-locked">
+                    <div class="cert-locked-icon"><i class="fa fa-lock"></i></div>
+                    <h2>ประกาศนียบัตรยังคงถูกล็อคอยู่</h2>
+                    <p style="color: var(--color-text-muted); margin-top: 12px; margin-bottom: 24px;">
+                        คุณต้องสอบแบบทดสอบหลังเรียน (Post-test) ให้ผ่านด้วยคะแนนเต็ม 20/20 ก่อน
+                    </p>
+                    <button class="btn btn-primary" onclick="switchTab('post')">
+                        <i class="fa fa-arrow-right"></i> ไปทำข้อสอบ Post-test
+                    </button>
+                </div>
+
+                <!-- Unlocked State -->
+                <div class="cert-unlocked-state" id="cert-unlocked" style="display: none;">
+                    <div class="cert-frame">
+                        <canvas id="cert-canvas" style="max-width:100%; border-radius: 8px; box-shadow: var(--shadow-lg);"></canvas>
+                        <div id="cert-qr-hidden" style="display:none;"></div>
+                    </div>
+                    
+                    <div class="cert-actions">
+                        <button class="btn btn-success" id="btn-download-cert" onclick="downloadCertificate()">
+                            <i class="fa fa-download"></i> ดาวน์โหลดใบประกาศนียบัตร (PNG)
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.print()">
+                            <i class="fa fa-print"></i> พิมพ์ใบประกาศนียบัตร
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="qrcode.min.js"></script>
+    <script src="cert_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
