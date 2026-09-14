@@ -345,7 +345,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 11. Check "all lessons done" banner
     updateAllLessonsBanner();
+
+    // 12. Mobile menu drawer handling
+    setupMobileMenu();
 });
+
+// Mobile menu drawer handling
+function setupMobileMenu() {
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+    const closeBtn = document.getElementById("sidebar-close-btn");
+    const sidebar = document.querySelector(".sidebar");
+    const backdrop = document.getElementById("sidebar-backdrop");
+
+    function openMobileSidebar() {
+        if (sidebar) sidebar.classList.add("mobile-open");
+        if (backdrop) backdrop.classList.add("active");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileSidebar() {
+        if (sidebar) sidebar.classList.remove("mobile-open");
+        if (backdrop) backdrop.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+
+    if (toggleBtn) toggleBtn.addEventListener("click", openMobileSidebar);
+    if (closeBtn) closeBtn.addEventListener("click", closeMobileSidebar);
+    if (backdrop) backdrop.addEventListener("click", closeMobileSidebar);
+
+    // Close drawer when nav links are tapped on mobile
+    document.querySelectorAll(".nav-link").forEach(link => {
+        link.addEventListener("click", () => {
+            if (window.innerWidth <= 768) {
+                closeMobileSidebar();
+            }
+        });
+    });
+}
 
 
 // ============================================================
@@ -871,6 +907,19 @@ function updateProgressStats() {
 
     const certStatusEl = document.getElementById("stat-cert-unlocked");
     if (certStatusEl) certStatusEl.textContent = isCertificateUnlocked() ? "ปลดล็อคแล้ว ✓" : "ล็อคอยู่";
+
+    // Update Your Learning Path status tags
+    const pathPre = document.getElementById("path-tag-pre");
+    if (pathPre) pathPre.textContent = preScore !== null ? `คะแนน ${preScore}/20` : "ยังไม่ได้ทำ";
+
+    const pathLessons = document.getElementById("path-tag-lessons");
+    if (pathLessons) pathLessons.textContent = `${completedCount} / 12 Lessons`;
+
+    const pathPost = document.getElementById("path-tag-post");
+    if (pathPost) pathPost.textContent = postScore !== null ? `คะแนน ${postScore}/40` : "ยังไม่ได้ทำ";
+
+    const pathCert = document.getElementById("path-tag-cert");
+    if (pathCert) pathCert.textContent = isCertificateUnlocked() ? "ปลดล็อคแล้ว ✓" : "ล็อคอยู่";
 
     checkAndUnlockCertificate();
 }

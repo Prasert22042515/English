@@ -34,12 +34,32 @@
         </div>
     </div>
 
+    <!-- Mobile Header Bar -->
+    <header class="mobile-header-bar">
+        <div class="mobile-brand">
+            <img src="prasertakk2.jpg" alt="PrasertAKK Logo" class="mobile-brand-logo">
+            <div class="mobile-brand-info">
+                <span class="mobile-brand-name">PrasertAKK</span>
+                <span class="mobile-brand-sub">Unlock English for Communication</span>
+            </div>
+        </div>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+            <i class="fa fa-bars"></i>
+        </button>
+    </header>
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <div class="brand-section">
-                <img src="prasertakk2.jpg" alt="PrasertAKK Logo" class="brand-logo">
-                <span class="brand-name">PrasertAKK</span>
+            <div class="sidebar-top-mobile">
+                <div class="brand-section">
+                    <img src="prasertakk2.jpg" alt="PrasertAKK Logo" class="brand-logo">
+                    <span class="brand-name">PrasertAKK</span>
+                </div>
+                <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close menu">
+                    <i class="fa fa-xmark"></i>
+                </button>
             </div>
             
             <nav class="nav-menu">
@@ -102,7 +122,7 @@
             <section id="dashboard-section" class="tab-section active">
                 <div class="welcome-banner">
                     <div class="welcome-text">
-                        <span class="welcome-badge">ยินดีต้อนรับเข้าสู่บทเรียน</span>
+                        <span class="welcome-badge">ONLINE COURSE · PRASERTAKK</span>
                         <h1>Unlock English for Communication</h1>
                         <p class="welcome-desc">
                             เนื้อหาของบทเรียนประกอบด้วยการสื่อสารภาษาอังกฤษในสถานการณ์ต่าง ๆ จำนวน 12 บทเรียน 
@@ -147,6 +167,52 @@
                         <div class="progress-stat-box">
                             <div class="progress-stat-val" id="stat-cert-unlocked">ล็อคอยู่</div>
                             <div class="progress-stat-lbl">Step 4 : ประกาศนียบัตร</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Your Learning Path Step Cards Section (Lovable Style) -->
+                <div class="learning-path-section">
+                    <h2 class="section-title"><i class="fa fa-route" style="color: var(--color-primary);"></i> Your learning path (เส้นทางการเรียน)</h2>
+                    <div class="learning-path-grid">
+                        <div class="path-card step-link" data-tab="pre" data-step="1" onclick="switchTab('pre')">
+                            <div class="path-step-badge">1</div>
+                            <div class="path-card-content">
+                                <h3>Step 1: Pre-test</h3>
+                                <p>Complete the pre-test to unlock the lessons.</p>
+                                <div class="path-status-tag" id="path-tag-pre">ยังไม่ได้ทำ</div>
+                            </div>
+                            <i class="fa fa-chevron-right path-arrow"></i>
+                        </div>
+
+                        <div class="path-card step-link" data-tab="lessons" data-step="2" onclick="switchTab('lessons')">
+                            <div class="path-step-badge">2</div>
+                            <div class="path-card-content">
+                                <h3>Step 2: Lessons (1–12)</h3>
+                                <p>Study 12 lessons in order — one step at a time.</p>
+                                <div class="path-status-tag" id="path-tag-lessons">0 / 12 Lessons</div>
+                            </div>
+                            <i class="fa fa-chevron-right path-arrow"></i>
+                        </div>
+
+                        <div class="path-card step-link" data-tab="post" data-step="3" onclick="switchTab('post')">
+                            <div class="path-step-badge">3</div>
+                            <div class="path-card-content">
+                                <h3>Step 3: Post-test</h3>
+                                <p>Finish the post-test to earn your certificate.</p>
+                                <div class="path-status-tag" id="path-tag-post">ยังไม่ได้ทำ</div>
+                            </div>
+                            <i class="fa fa-chevron-right path-arrow"></i>
+                        </div>
+
+                        <div class="path-card step-link" data-tab="certificate" data-step="4" onclick="switchTab('certificate')">
+                            <div class="path-step-badge">4</div>
+                            <div class="path-card-content">
+                                <h3>Step 4: Certificate</h3>
+                                <p>Download your verified course certificate.</p>
+                                <div class="path-status-tag" id="path-tag-cert">ล็อคอยู่</div>
+                            </div>
+                            <i class="fa fa-chevron-right path-arrow"></i>
                         </div>
                     </div>
                 </div>
