@@ -376,7 +376,7 @@ function setupMobileMenu() {
     // Close drawer when nav links are tapped on mobile
     document.querySelectorAll(".nav-link").forEach(link => {
         link.addEventListener("click", () => {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1024) {
                 closeMobileSidebar();
             }
         });
